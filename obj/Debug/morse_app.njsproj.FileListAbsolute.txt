@@ -1,0 +1,3 @@
+C:\Users\wills\Desktop\Shortcuts\Files\Github\morse_app\morse_app\obj\Debug\morse_app.njsproj.AssemblyReference.cache
+C:\Users\wills\Desktop\Shortcuts\Files\Github\morse_app\morse_app\obj\Debug\morse_app.njsproj.CoreCompileInputs.cache
+C:\Users\wills\Desktop\Shortcuts\Files\Github\morse_app\morse_app\bin\Microsoft.NodejsTools.WebRole.dll

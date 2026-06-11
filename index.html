@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="apple-mobile-web-app-title" content="Morse">
+    <meta name="theme-color" content="#1a1a1a">
+    <title>Morse Code</title>
+
+    <style src="style.css"> </style>
+    <link rel="stylesheet" href="style.css"/>
+</head>
+<body>
+
+    <div class="app">
+        <div class="header">
+            <div class="header-dot"></div>
+            <div>
+                <h1>Morse Code</h1>
+                <p>Translate, play & decode</p>
+            </div>
+        </div>
+
+        <div class="tabs">
+            <button class="tab active" onclick="switchTab('encode')">Text to Morse</button>
+            <button class="tab" onclick="switchTab('decode')">Morse to Text</button>
+            <button class="tab" onclick="switchTab('ref')">Reference</button>
+        </div>
+
+        <div class="panels">
+
+            <!-- ENCODE -->
+            <div class="panel active" id="panel-encode">
+                <div>
+                    <div class="label">Enter text</div>
+                    <textarea id="input-text" rows="3" placeholder="Type something…" oninput="encodeText()"></textarea>
+                </div>
+                <div>
+                    <div class="label">Morse code</div>
+                    <div class="morse-box placeholder" id="morse-out">Your morse code appears here</div>
+                </div>
+                <div class="speed-row">
+                    <span class="label" style="margin:0;white-space:nowrap">Speed</span>
+                    <input type="range" min="1" max="5" step="1" value="3" id="speed-slider" oninput="updateSpeed(this.value)">
+                    <span class="speed-label" id="speed-label">Normal</span>
+                </div>
+                <div class="flash-wrap">
+                    <div class="flash" id="flash-light"></div>
+                    <div style="flex:1">
+                        <div class="btn-row" style="margin-bottom:8px">
+                            <button class="btn primary" onclick="playMorse()" id="play-btn">
+                                <svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z" /></svg>
+                                Play
+                            </button>
+                            <button class="btn" onclick="stopMorse()">
+                                <svg viewBox="0 0 24 24" fill="currentColor"><rect x="6" y="6" width="12" height="12" /></svg>
+                                Stop
+                            </button>
+                            <button class="btn" onclick="copyMorse()">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2" /><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1" /></svg>
+                                Copy
+                            </button>
+                        </div>
+                        <div class="status" id="play-status"></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- DECODE -->
+            <div class="panel" id="panel-decode">
+                <div>
+                    <div class="label">Enter Morse code</div>
+                    <div style="font-size:12px;color:var(--muted);margin-bottom:8px">· or . = dot &nbsp;|&nbsp; – or - = dash &nbsp;|&nbsp; space = letter &nbsp;|&nbsp; / = word</div>
+                    <textarea id="input-morse" rows="4" placeholder="... --- ..." oninput="decodeMorse()" style="font-family:'Courier New',monospace;font-size:18px;letter-spacing:2px"></textarea>
+                </div>
+                <div>
+                    <div class="label">Decoded text</div>
+                    <div class="morse-box placeholder" id="decoded-out" style="font-family:inherit;font-size:20px;letter-spacing:normal;font-weight:500">Decoded text appears here</div>
+                </div>
+                <div>
+                    <button class="btn" onclick="document.getElementById('input-morse').value='';document.getElementById('decoded-out').textContent='Decoded text appears here';document.getElementById('decoded-out').classList.add(\'placeholder\')">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8" /><path d="M3 3v5h5" /></svg>
+                        Clear
+                    </button>
+                </div>
+            </div>
+
+            <!-- REFERENCE -->
+            <div class="panel" id="panel-ref">
+                <div class="label">Tap a character to copy its code</div>
+                <div class="ref-grid" id="ref-grid"></div>
+            </div>
+
+        </div>
+    </div>
+
+    <div class="toast" id="toast"></div>
+
+    <script src="script.js"> </script>
+
+</body>
+</html>
