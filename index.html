@@ -1,3 +1,4 @@
+Index · HTML
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -9,9 +10,7 @@
     <meta name="apple-mobile-web-app-title" content="Morse">
     <meta name="theme-color" content="#1a1a1a">
     <title>Morse Code</title>
-
-    <style src="style.css"> </style>
-    <link rel="stylesheet" href="style.css"/>
+    <link rel="stylesheet" href="style.css" />
 </head>
 <body>
 
@@ -20,11 +19,11 @@
             <div class="header-dot"></div>
             <div>
                 <h1>Morse Code</h1>
-                <p>Translate, play & decode</p>
+                <p>Translate, play &amp; decode</p>
             </div>
         </div>
 
-        <div class="tabs">
+        <div class="tabs"> <!-- labels need to change between code types-->
             <button class="tab active" onclick="switchTab('encode')">Text to Morse</button>
             <button class="tab" onclick="switchTab('decode')">Morse to Text</button>
             <button class="tab" onclick="switchTab('ref')">Reference</button>
@@ -34,15 +33,28 @@
 
             <!-- ENCODE -->
             <div class="panel active" id="panel-encode">
+
+                <!-- Mode toggle row -->
+                <div class="mode-row">
+                    <span class="mode-label-text">Mode: <strong id="mode-label">Morse Code</strong></span>
+                    <button class="btn mode-btn" id="mode-btn" onclick="toggleMode()">⇄ Switch to Tap Code</button>
+                </div>
+
+                <!-- Tap code info note (hidden by default) -->
+                <div class="tap-note" id="tap-note" style="display:none">
+                    Tap code uses a 5×5 grid — letters only. C and K share the same code.
+                    Two spaces separate letters; <code>|</code> separates words.
+                </div>
+
                 <div>
                     <div class="label">Enter text</div>
                     <textarea id="input-text" rows="3" placeholder="Type something…" oninput="encodeText()"></textarea>
                 </div>
                 <div>
-                    <div class="label">Morse code</div>
+                    <div class="label" id="output-label">Morse code</div>
                     <div class="morse-box placeholder" id="morse-out">Your morse code appears here</div>
                 </div>
-                <div class="speed-row">
+                <div class="speed-row" id="speed-row">
                     <span class="label" style="margin:0;white-space:nowrap">Speed</span>
                     <input type="range" min="1" max="5" step="1" value="3" id="speed-slider" oninput="updateSpeed(this.value)">
                     <span class="speed-label" id="speed-label">Normal</span>
@@ -69,7 +81,7 @@
                 </div>
             </div>
 
-            <!-- DECODE -->
+            <!-- DECODE (Morse only) -->
             <div class="panel" id="panel-decode">
                 <div>
                     <div class="label">Enter Morse code</div>
@@ -81,7 +93,7 @@
                     <div class="morse-box placeholder" id="decoded-out" style="font-family:inherit;font-size:20px;letter-spacing:normal;font-weight:500">Decoded text appears here</div>
                 </div>
                 <div>
-                    <button class="btn" onclick="document.getElementById('input-morse').value='';document.getElementById('decoded-out').textContent='Decoded text appears here';document.getElementById('decoded-out').classList.add(\'placeholder\')">
+                    <button class="btn" onclick="document.getElementById('input-morse').value='';document.getElementById('decoded-out').textContent='Decoded text appears here';document.getElementById('decoded-out').classList.add('placeholder')">
                         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8" /><path d="M3 3v5h5" /></svg>
                         Clear
                     </button>
@@ -98,8 +110,6 @@
     </div>
 
     <div class="toast" id="toast"></div>
-
-    <script src="script.js"> </script>
-
+    <script src="script.js"></script>
 </body>
 </html>

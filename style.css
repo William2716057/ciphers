@@ -1,3 +1,4 @@
+
 :root {
     --bg: #0f0f0f;
     --surface: #1c1c1c;
@@ -7,6 +8,8 @@
     --muted: #888;
     --accent: #d4a843;
     --accent-dim: rgba(212,168,67,0.15);
+    --tap: #5ba8d4;
+    --tap-dim: rgba(91,168,212,0.15);
     --radius: 12px;
     --radius-sm: 8px;
 }
@@ -50,6 +53,11 @@ html, body {
     border-radius: 50%;
     background: var(--accent);
     flex-shrink: 0;
+    transition: background 0.3s;
+}
+
+body.tap-mode .header-dot {
+    background: var(--tap);
 }
 
 .header h1 {
@@ -91,6 +99,11 @@ html, body {
         border-bottom-color: var(--accent);
     }
 
+body.tap-mode .tab.active {
+    color: var(--tap);
+    border-bottom-color: var(--tap);
+}
+
 /* Panels */
 .panels {
     flex: 1;
@@ -124,7 +137,7 @@ html, body {
     margin-bottom: 6px;
 }
 
-/* Text areas */
+/* Textareas */
 textarea {
     width: 100%;
     background: var(--surface);
@@ -144,7 +157,11 @@ textarea {
         border-color: var(--accent);
     }
 
-/* Morse display */
+body.tap-mode textarea:focus {
+    border-color: var(--tap);
+}
+
+/* Morse/tap display */
 .morse-box {
     background: var(--surface);
     border: 1px solid var(--border);
@@ -164,6 +181,53 @@ textarea {
         font-family: inherit;
         font-size: 14px;
         letter-spacing: 0;
+    }
+
+/* Mode toggle row */
+.mode-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+}
+
+.mode-label-text {
+    font-size: 13px;
+    color: var(--muted);
+}
+
+    .mode-label-text strong {
+        color: var(--text);
+    }
+
+.mode-btn {
+    flex-shrink: 0;
+    font-size: 12px !important;
+    padding: 7px 12px !important;
+}
+
+    .mode-btn.active-mode {
+        background: var(--tap-dim) !important;
+        border-color: var(--tap) !important;
+        color: var(--tap) !important;
+    }
+
+/* Tap code info note */
+.tap-note {
+    background: var(--tap-dim);
+    border: 1px solid rgba(91,168,212,0.3);
+    border-radius: var(--radius-sm);
+    padding: 10px 14px;
+    font-size: 12px;
+    color: var(--tap);
+    line-height: 1.6;
+}
+
+    .tap-note code {
+        background: rgba(91,168,212,0.2);
+        border-radius: 3px;
+        padding: 0 4px;
+        font-family: 'Courier New', monospace;
     }
 
 /* Flash light */
@@ -188,6 +252,12 @@ textarea {
         border-color: var(--accent);
         box-shadow: 0 0 20px rgba(212,168,67,0.5);
     }
+
+body.tap-mode .flash.on {
+    background: var(--tap);
+    border-color: var(--tap);
+    box-shadow: 0 0 20px rgba(91,168,212,0.5);
+}
 
 /* Buttons */
 .btn-row {
@@ -221,11 +291,17 @@ textarea {
         color: var(--accent);
     }
 
-    .btn svg {
-        width: 16px;
-        height: 16px;
-        flex-shrink: 0;
-    }
+body.tap-mode .btn.primary {
+    background: var(--tap-dim);
+    border-color: var(--tap);
+    color: var(--tap);
+}
+
+.btn svg {
+    width: 16px;
+    height: 16px;
+    flex-shrink: 0;
+}
 
 /* Speed */
 .speed-row {
@@ -287,6 +363,10 @@ input[type=range] {
         border-color: var(--accent);
     }
 
+body.tap-mode .ref-cell:active {
+    border-color: var(--tap);
+}
+
 .ref-char {
     font-size: 16px;
     font-weight: 600;
@@ -295,9 +375,21 @@ input[type=range] {
 
 .ref-morse {
     font-family: 'Courier New', monospace;
-    font-size: 12px;
+    font-size: 11px;
     color: var(--accent);
     letter-spacing: 1px;
+    margin-top: 2px;
+    word-break: break-all;
+    line-height: 1.4;
+}
+
+body.tap-mode .ref-morse {
+    color: var(--tap);
+}
+
+.ref-note {
+    font-size: 10px;
+    color: var(--muted);
     margin-top: 2px;
 }
 
@@ -322,6 +414,7 @@ input[type=range] {
     transition: opacity 0.2s;
     pointer-events: none;
     z-index: 999;
+    white-space: nowrap;
 }
 
     .toast.show {
