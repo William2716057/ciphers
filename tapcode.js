@@ -140,7 +140,7 @@ const manifest = {
     theme_color: '#1a1a1a',
     icons: [
         { src: "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 512 512'%3E%3Crect width='512' height='512' fill='%231c1c1c'/%3E%3Ccircle cx='160' cy='256' r='60' fill='%23d4a843'/%3E%3Crect x='260' y='216' width='140' height='80' rx='12' fill='%23d4a843'/%3E%3C/svg%3E", sizes: '512x512', type: 'image/svg+xml' }
-    ]
+    ] //update before deprecation 
 };
 const blob = new Blob([JSON.stringify(manifest)], { type: 'application/json' });
 const url = URL.createObjectURL(blob);
